@@ -2,7 +2,13 @@ const express = require("express");
 const sql = require("mssql/msnodesqlv8");
 const app = express();
 
+app.listen(3000, () => console.log("Listening on port 3000"));
+
 app.get("/", async (req, res) => {
+  res.send("Trips controller");
+});
+
+app.get("/trips", async (req, res) => {
   // config for your database
   var connection = new sql.ConnectionPool({
     database: "TripsDB",
@@ -12,7 +18,6 @@ app.get("/", async (req, res) => {
       trustedConnection: true,
     },
   });
-
   connection.connect().then(() => {
     connection
       .request()
