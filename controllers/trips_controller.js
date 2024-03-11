@@ -1,8 +1,11 @@
 const express = require("express");
 require("dotenv").config();
 const sql = require("mssql/msnodesqlv8");
-const trip_model = require("../models/trip_model.js");
 const app = express();
+
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(3000, () => console.log("Listening on port 3000"));
 
@@ -30,7 +33,7 @@ app.get("/trips", async (req, res) => {
   });
 });
 
-app.post("/addTrip", (req, res) => {
+app.post("/addTrip", async (req, res) => {
   var connection = new sql.ConnectionPool({
     database: "TripsDB",
     server: "LAPTOP-3Q354RTQ\\SQLEXPRESS",
@@ -38,5 +41,12 @@ app.post("/addTrip", (req, res) => {
     options: {
       trustedConnection: true,
     },
+  });
+
+  connection.connect().then(async () => {
+    const { Destination, StartDate, EndDate, Description } = req.body;
+    const result = await connection.request()
+      .query`INSERT INTO Trips (Destination, StartDate, EndDate, Description) VALUES (${Destination}, ${StartDate}, ${EndDate}, ${Description})`;
+    res.send(`New trip added ${result}`);
   });
 });

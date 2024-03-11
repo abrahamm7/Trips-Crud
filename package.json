@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node ./controllers/trips_controller.js",
     "dev": "nodemon ./controllers/trips_controller.js"
   },
   "keywords": [],
@@ -17,7 +16,10 @@
     "msnodesqlv8": "^4.1.2",
     "mssql": "^10.0.2",
     "nodemon": "^3.1.0",
-    "sequelize": "^6.37.1"
+    "sequelize": "^6.37.1",
+    "swagger-autogen": "^2.23.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
