@@ -50,3 +50,11 @@ app.put("/updateTrip", async (req, res) => {
     res.send(`New trip added ${result}`);
   });
 });
+
+app.delete("/deleteTrip:id", async (req, res) => {
+  connection.connect().then(async () => {
+    const { TripID } = req.body;
+    await connection.request().query`DELETE Trips WHERE TripId = ${TripID}`;
+    res.send(200).end();
+  });
+});
